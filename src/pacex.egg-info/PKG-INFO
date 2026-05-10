@@ -1,7 +1,7 @@
 Metadata-Version: 2.4
 Name: pacex
 Version: 0.1.0
-Summary: PACE: Permutation-based Actionable Counterfactual Explainer
+Summary: PACE: Proposal Assembly for Counterfactual Explanations
 License: MIT
 Project-URL: Homepage, https://github.com/lchristodoulou/pace
 Project-URL: Issues, https://github.com/lchristodoulou/pace/issues
@@ -22,7 +22,7 @@ Requires-Dist: scikit-learn>=1.1
 
 # PACE
 
-**P**ermutation-based **A**ctionable **C**ounterfactual **E**xplainer for tabular classifiers.
+**P**roposal **A**ssembly for **C**ounterfactual **E**xplanations — a counterfactual explainer for tabular classifiers.
 
 PACE generates counterfactual explanations — the smallest change to a data point that flips the model's prediction.  It works with any binary classifier that exposes a `predict_proba` method, handles mixed numeric/categorical features natively, and supports actionability constraints.
 
@@ -101,18 +101,7 @@ explainer = PACE(X_train=X_tr_sc, predict_proba=model.predict_proba)
 x_cf, report = explainer.explain(x_f, y_desired=1)
 ```
 
-## Citation
-
-If you use PACE in research, please cite:
-
-```
-@misc{pace2025,
-  title  = {PACE: Permutation-based Actionable Counterfactual Explainer},
-  year   = {2025},
-  url    = {https://github.com/lchristodoulou/pace}
-}
-```
 
 ## License
 
-MIT
+Apache 2.0
