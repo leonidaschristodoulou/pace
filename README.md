@@ -79,18 +79,7 @@ explainer = PACE(X_train=X_tr_sc, predict_proba=model.predict_proba)
 x_cf, report = explainer.explain(x_f, y_desired=1)
 ```
 
-## Citation
-
-If you use PACE in research, please cite:
-
-```
-@misc{pace2025,
-  title  = {PACE: Permutation-based Actionable Counterfactual Explainer},
-  year   = {2025},
-  url    = {https://github.com/lchristodoulou/pace}
-}
-```
 
 ## License
 
-MIT
+Apache 2.0
