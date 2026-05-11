@@ -4,10 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pacex"
-version = "0.1.0"
+version = "0.1.1"
 description = "PACE: Proposal Assembly for Counterfactual Explanations"
 readme = "README.md"
 license = { text = "Apache-2.0" }
+authors = [{ name = "Leonidas Christodoulou", email = "lchristodoulou@gmail.com" }]
 requires-python = ">=3.9"
 dependencies = [
     "numpy>=1.24",
@@ -23,12 +24,13 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
 
 [project.urls]
-Homepage = "https://github.com/lchristodoulou/pace"
-Issues   = "https://github.com/lchristodoulou/pace/issues"
+Homepage = "https://github.com/leonidaschristodoulou/pace"
+Issues   = "https://github.com/leonidaschristodoulou/pace/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

@@ -13,24 +13,34 @@ pip install pacex
 ## Quick start
 
 ```python
-import pandas as pd
+from sklearn.datasets import fetch_openml
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
 from pace import PACE, FeatureInfo
 from pace.preprocessing import make_preprocessor, feature_info_from_preprocessor
 
-# 1. Prepare data
+# 1. Load the Adult income dataset
+data = fetch_openml("adult", version=2, as_frame=True)
+df = data.frame.rename(columns={"capital-gain": "capital_gain", "hours-per-week": "hours_per_week"})
+y = (df["class"] == ">50K").astype(int)
+
 num_cols = ["age", "hours_per_week", "capital_gain"]
 cat_cols = ["workclass", "education", "occupation"]
 
+X_train_df, X_test_df, y_train, y_test = train_test_split(
+    df[num_cols + cat_cols], y, test_size=0.2, random_state=42
+)
+
+# 2. Preprocess
 pre = make_preprocessor(num_cols, cat_cols)
 X_tr_sc = pre.fit_transform(X_train_df)   # numpy array, model space
 X_te_sc = pre.transform(X_test_df)
 feature_info = feature_info_from_preprocessor(pre, num_cols, cat_cols)
 
-# 2. Train your model (any sklearn-compatible classifier)
+# 3. Train your model (any sklearn-compatible classifier)
 model = RandomForestClassifier().fit(X_tr_sc, y_train)
 
-# 3. Fit PACE once per (dataset, model) pair
+# 4. Fit PACE once per (dataset, model) pair
 explainer = PACE(
     X_train=X_tr_sc,
     predict_proba=model.predict_proba,
@@ -40,14 +50,14 @@ explainer = PACE(
     cat_cols=cat_cols,
 )
 
-# 4. Explain a single instance
+# 5. Explain a single instance
 x_f = X_te_sc[0]
 x_cf, report = explainer.explain(x_f, y_desired=1)
 
 print(report)
 # {'status': 'ok', 'l0': 2, 'l2': 0.83, 'p_cf': 0.71, ...}
 
-# 5. Decode back to human-readable values
+# 6. Decode back to human-readable values
 print(explainer.decode(x_cf))
 # {'age': 34.0, 'hours_per_week': 45.0, 'workclass': 'Private', ...}
 ```
